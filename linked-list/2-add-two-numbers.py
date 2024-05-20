@@ -16,52 +16,50 @@ class Solution:
         print(values)
 
     def addTwoNumbers(self, l1: Optional[ListNode], l2: Optional[ListNode]) -> Optional[ListNode]:
-    
-        dummyHead = ListNode(0)
-        tail = dummyHead
-        carry = 0
 
-        while l1 or l2 or carry != 0:
-            v1 = l1.val if l1 else 0
-            v2 = l2.val if l2 else 0 
+        curr1, curr2 = l1, l2 
+        carry, digit = 0, 0 
 
-            total = v1 + v2 + carry
+        dummy = ListNode()
+        tail = dummy
+
+        while curr1 or curr2 or carry:
+            v1 = curr1.val if curr1 else 0
+            v2 = curr2.val if curr2 else 0
+            total = v1 + v2 + carry 
             digit = total % 10
-            carry = total // 10
+            carry = total // 10 
 
-            newNode = ListNode(digit)
-            tail.next = newNode
-            tail = tail.next
+            node = ListNode(digit)
+            tail.next = node
+            tail = node
 
-            l1 = l1.next if l1 else None
-            l2 = l2.next if l2 else None
+            if curr1:
+                curr1 = curr1.next
+            if curr2:
+                curr2 = curr2.next
 
-        result = dummyHead.next             # smart...we don't even use originaly dummyHead. It's just a placeholder
-        return dummyHead.next
-
-
-
+        return dummy.next 
 
 
 
 
 a = ListNode(9)
 b = ListNode(9)
-c = ListNode(9)
-d = ListNode(9)
+# c = ListNode(9)
+# d = ListNode(9)
 a.next = b
-b.next = c
-d.next = d
+# b.next = c
+# d.next = d
 l1 = a
 
 q = ListNode(9)
-r = ListNode(9)
-s = ListNode(9)
-q.next = r
-r.next = s
+# r = ListNode(9)
+# s = ListNode(9)
+# q.next = r
+# r.next = s
 l2 = q
 
-# Solution().printList(head1)
 head = Solution().addTwoNumbers(l1, l2)
 Solution().printList(head)
 
@@ -72,9 +70,36 @@ Solution().printList(head)
 
 
 
+'''
+LC solution (ChatGPT) 
+def addTwoNumbers(self, l1: Optional[ListNode], l2: Optional[ListNode]) -> Optional[ListNode]:
+
+    dummyHead = ListNode(0)
+    tail = dummyHead
+    carry = 0
+
+    while l1 or l2 or carry != 0:
+        v1 = l1.val if l1 else 0
+        v2 = l2.val if l2 else 0 
+
+        total = v1 + v2 + carry
+        digit = total % 10
+        carry = total // 10
+
+        newNode = ListNode(digit)
+        tail.next = newNode
+        tail = tail.next
+
+        l1 = l1.next if l1 else None
+        l2 = l2.next if l2 else None
+
+    result = dummyHead.next             # smart...we don't even use originaly dummyHead. It's just a placeholder
+    return dummyHead.next
+'''
 
 
 '''
+Original Attempt
 def addTwoNumbers(self, l1: Optional[ListNode], l2: Optional[ListNode]) -> Optional[ListNode]:
     curr1, curr2 = l1, l2
     total = 0
