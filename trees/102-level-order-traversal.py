@@ -11,36 +11,53 @@ class TreeNode:
 class Solution:
 
     # BFS / iterative
-    # keep track of:
-    # - number of nodes in the level we still need to process
-    # - value of nodes at each level 
+    # @DBabichev (https://leetcode.com/problems/binary-tree-level-order-traversal/solutions/1219538/python-simple-bfs-explained/)
+
     def levelOrder(self, root: Optional[TreeNode]) -> List[List[int]]:
-        if not root:
-            return []
-
-        values, res = [], [] 
-        num_nodes_in_level = 1
-        queue = deque([ root ])
+        if not root: return [] 
+        values, queue = [], deque([ root ])
         while queue:
-            curr = queue.popleft()
+            level = [] 
+            for i in range(len(queue)):
+                node = queue.popleft()
+                level.append(node.val)
+                if node.left: queue.append(node.left)
+                if node.right: queue.append(node.right)
+            values.append(level)
+        return values 
+            
 
-            values.append(curr.val)
-            if curr.left:
-                queue.append(curr.left)
-            if curr.right:
-                queue.append(curr.right)
+    # # BFS / iterative
+    # # keep track of:
+    # # - number of nodes in the level we still need to process
+    # # - value of nodes at each level 
+    # def levelOrder(self, root: Optional[TreeNode]) -> List[List[int]]:
+    #     if not root:
+    #         return []
 
-            num_nodes_in_level -= 1 
-            if num_nodes_in_level == 0:
+    #     values, res = [], [] 
+    #     num_nodes_in_level = 1
+    #     queue = deque([ root ])
+    #     while queue:
+    #         curr = queue.popleft()
 
-                # add the values in the level to the results 
-                res.append(values)
-                values = []
+    #         values.append(curr.val)
+    #         if curr.left:
+    #             queue.append(curr.left)
+    #         if curr.right:
+    #             queue.append(curr.right)
 
-                # update the num_nodes in level - len(queue)
-                num_nodes_in_level = len(queue)
+    #         num_nodes_in_level -= 1 
+    #         if num_nodes_in_level == 0:
 
-        return res
+    #             # add the values in the level to the results 
+    #             res.append(values)
+    #             values = []
+
+    #             # update the num_nodes in level - len(queue)
+    #             num_nodes_in_level = len(queue)
+
+    #     return res
 
 
 #       3

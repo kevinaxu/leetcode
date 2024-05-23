@@ -67,6 +67,22 @@ def inorderRecursive(root: Optional[TreeNode]) -> List[int]:
     traverse(root)
     return values 
 
+'''
+BFS
+'''
+def levelOrder(self, root: Optional[TreeNode]) -> List[List[int]]:
+    if not root: return [] 
+    values, queue = [], deque([ root ])
+    while queue:
+        level = [] 
+        for i in range(len(queue)):
+            node = queue.popleft()
+            level.append(node.val)
+            if node.left: queue.append(node.left)
+            if node.right: queue.append(node.right)
+        values.append(level)
+    return values 
+
 
 
 
