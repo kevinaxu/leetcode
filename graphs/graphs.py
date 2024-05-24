@@ -36,6 +36,30 @@ def bfs(graph, start) -> List[str]:
             queue.append(neighbor)
     return values 
 
+'''
+BFS 
+'''
+
+# BFS / iterative - iterate over all nodes in current level (similar to trees BFS) 
+# Input: adjacency list 
+# Returns:
+#   -1 if no src == 1
+#   number of iterations to get to src
+def bfs(graph, src, dest):
+    visited, queue = set(), deque([ src ])
+    level = 0
+    while queue:
+        for _ in range(len(queue)):
+            curr = queue.popleft()
+            if curr in visited: continue
+            if curr == dest: return level
+            visited.add(curr)
+            for neighbor in graph[curr]:
+                queue.append(neighbor)
+        level += 1
+    return -1
+
+
 
 graph = {
     'a': ['b', 'c'],
