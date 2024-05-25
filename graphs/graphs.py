@@ -61,13 +61,47 @@ def bfs(graph, src, dest):
 
 
 
-graph = {
-    'a': ['b', 'c'],
-    'b': ['d'],
-    'c': ['e'],
-    'd': ['f'],
-    'e': [],
-    'f': []
-}
 
-bfs(graph, "a")
+
+# DFS - get topological ordering 
+def topological_sort(graph):
+    nodes = graph.keys()
+    num_nodes = len(nodes)
+
+    order, visited = [], set()
+
+    def dfs(node):
+        print("processing:", node)
+        # Base Case: 
+        if node in visited:
+            print("already visited, skipping...", node)
+            return 
+
+        visited.add(node)
+        if not graph[node]:     # add to top ordering
+            order.append(node)
+
+        for neighbor in graph[node]:
+            dfs(neighbor)
+
+    dfs("F")
+
+    print("visited", visited)
+
+
+graph = {
+  "J": ["M", "L"],
+  "K": ["J"],
+  "F": ["K", "J"],
+  "H": ["J, I"],
+  "L": [],
+  "M": [],
+  "I": ["L"],
+  "G": ["I"],
+  "D": ["H", "G"],
+  "E": ["A", "D", "F"],
+  "A": ["D"],
+  "C": ["B", "A"],
+  "B": ["D"]
+}
+topological_sort(graph)
